@@ -1,6 +1,7 @@
 package com.smile.tank;
 
 
+import com.smile.config.ProConfig;
 import com.smile.enums.DirectionEnum;
 import com.smile.frame.GameFrame;
 import com.smile.resource.ResourceLoad;
@@ -17,7 +18,7 @@ public class Tank {
     // 方向
     private DirectionEnum direction;
     // 移动步长
-    private final int speed = 5;
+    private final int speed = Integer.parseInt(ProConfig.getProperties("TankSpeed"));
     // 碰撞区域
     private final Rectangle rect;
 
@@ -25,6 +26,7 @@ public class Tank {
 
     private boolean moving = false;
 
+    private FireStrategy fireStrategy = new DefaultFireStrategy();
 
     public Tank(int x, int y, DirectionEnum direction) {
         this.x = x;
@@ -62,8 +64,16 @@ public class Tank {
         }
     }
 
+    public void setFireStrategy(FireStrategy fireStrategy) {
+        this.fireStrategy = fireStrategy;
+    }
+
     public void setDirection(DirectionEnum direction) {
         this.direction = direction;
+    }
+
+    public DirectionEnum getDirection() {
+        return direction;
     }
 
     public void move() {
@@ -86,7 +96,7 @@ public class Tank {
     }
 
     public Bullet fire() {
-        return new Bullet(this.x + (this.w/2), this.y + (this.h/2), direction, this);
+        return fireStrategy.fire(this);
     }
 
     public Rectangle getRect() {

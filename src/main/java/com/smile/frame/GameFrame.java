@@ -1,5 +1,6 @@
 package com.smile.frame;
 
+import com.smile.config.ProConfig;
 import com.smile.enums.DirectionEnum;
 import com.smile.tank.Bullet;
 import com.smile.tank.Explode;
@@ -17,7 +18,8 @@ import java.util.Random;
 
 public class GameFrame extends Frame {
 
-    public static final int GAME_WIDTH = 1080, GAME_HEIGHT = 720;
+    public static final int GAME_WIDTH = Integer.parseInt(ProConfig.getProperties("GameFrameWeight"));
+    public static final int GAME_HEIGHT = Integer.parseInt(ProConfig.getProperties("GameFrameHeight"));
 
     private Tank myTank;
 

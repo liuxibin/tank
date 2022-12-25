@@ -1,5 +1,6 @@
 package com.smile.tank;
 
+import com.smile.config.ProConfig;
 import com.smile.enums.DirectionEnum;
 import com.smile.resource.ResourceLoad;
 
@@ -13,7 +14,7 @@ public class Bullet {
     // 方向
     private DirectionEnum direction;
     // 移动步长
-    private int speed = 20;
+    private final int speed = Integer.parseInt(ProConfig.getProperties("BulletSpeed"));
     // 移动指令时间间隔
     private final long intervalMillis = 25;
     // 移动指令时间
